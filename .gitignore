@@ -1,0 +1,31 @@
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+application-local.properties
+
+# Java / Maven
+**/target/
+**/build/
+
+# Node / React
+**/node_modules/
+**/dist/
+**/dist-ssr/
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+*.class
+
+# Operating system
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Local files
+*.local

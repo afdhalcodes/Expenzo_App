@@ -1,9 +1,8 @@
-const API_URL =
-    import.meta.env.VITE_API_URL || "http://localhost:8080";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
 async function parseResponse(response) {
-    const contentType =
-        response.headers.get("content-type") || "";
+    
+    const contentType = response.headers.get("content-type") || "";
 
     let data;
 
@@ -13,7 +12,7 @@ async function parseResponse(response) {
         data = await response.text();
     }
 
-    if (!response.ok) {
+    if (!response.ok) {//Here we are throwing a normalized error object.Instead of hadling different error formats.
         if (typeof data === "object" && data !== null) {
             throw {
                 status: data.status || response.status,
@@ -24,7 +23,7 @@ async function parseResponse(response) {
             };
         }
 
-        throw {
+        throw {  
             status: response.status,
             code: "REQUEST_FAILED",
             message: data || "Something went wrong.",

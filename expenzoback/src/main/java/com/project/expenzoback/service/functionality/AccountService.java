@@ -2,7 +2,7 @@ package com.project.expenzoback.service.functionality;
 
 import com.project.expenzoback.dto.account.AccountResponse;
 import com.project.expenzoback.dto.account.CreateAccountRequest;
-import com.project.expenzoback.model.functionality.Accounts;
+import com.project.expenzoback.model.functionality.account.Accounts;
 import com.project.expenzoback.model.security.Users;
 import com.project.expenzoback.repository.AccountsRepo;
 import com.project.expenzoback.repository.UsersRepo;

@@ -1,6 +1,9 @@
+
 import { useCallback, useEffect, useState } from "react";
 import AccountSetup from "../pages/AccountSetup";
 import { getAccounts } from "../services/accountService";
+import { getAccountBalance } from "../services/transactionService";
+import TransactionSection from "./TransactionSection";
 
 function formatAmount(amount) {
     return Number(amount ?? 0).toLocaleString("en-IN", {
@@ -11,31 +14,75 @@ function formatAmount(amount) {
 
 function AccountSection({ onLogout }) {
     const [accounts, setAccounts] = useState([]);
+    const [balances, setBalances] = useState({});
     const [showAccountSetup, setShowAccountSetup] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
+    // Fetch the latest balance for every account.
+    const loadBalances = useCallback(async (accountList) => {
+        const results = await Promise.all(
+            accountList.map(async (account) => {
+                try {
+                    const balanceResponse = await getAccountBalance(
+                        account.id
+                    );
+
+                    return [
+                        account.id,
+                        Number(
+                            balanceResponse.currentBalance ??
+                            account.openingBalance ??
+                            0
+                        )
+                    ];
+                } catch (error) {
+                    console.error(
+                        `Unable to load balance for account ${account.id}:`,
+                        error
+                    );
+
+                    return [
+                        account.id,
+                        Number(account.openingBalance ?? 0)
+                    ];
+                }
+            })
+        );
+
+        setBalances(Object.fromEntries(results));
+    }, []);
+
+    // Fetch accounts and their current balances.
     const loadAccounts = useCallback(async () => {
         setLoading(true);
         setError("");
 
         try {
             const data = await getAccounts();
+
             setAccounts(data);
+            await loadBalances(data);
         } catch (error) {
             setError(error.message);
         } finally {
             setLoading(false);
         }
-    }, []);
+    }, [loadBalances]);
 
     useEffect(() => {
         loadAccounts();
     }, [loadAccounts]);
 
+    // Called after creating an account.
     const handleAccountCreated = async () => {
         setShowAccountSetup(false);
         await loadAccounts();
+    };
+
+    // Called after a transaction is created.
+    const handleTransactionAdded = async () => {
+        await loadBalances(accounts);
     };
 
     const handleLogout = () => {
@@ -67,7 +114,7 @@ function AccountSection({ onLogout }) {
         );
     }
 
-    // First-time setup: show the original full-page setup form.
+    // First-time setup: preserve the original account setup page.
     if (accounts.length === 0) {
         return (
             <AccountSetup
@@ -135,22 +182,6 @@ function AccountSection({ onLogout }) {
                             </div>
                         )}
 
-                        {!error && accounts.length === 0 && (
-                            <div className="empty-accounts">
-                                <h3>No accounts yet</h3>
-                                <p>
-                                    Add an account to start managing your money.
-                                </p>
-
-                                <button
-                                    type="button"
-                                    onClick={() => setShowAccountSetup(true)}
-                                >
-                                    + Create Account
-                                </button>
-                            </div>
-                        )}
-
                         {accounts.length > 0 && (
                             <div className="accounts-grid">
                                 {accounts.map((account) => (
@@ -170,11 +201,12 @@ function AccountSection({ onLogout }) {
                                         </div>
 
                                         <div className="account-balance">
-                                            <span>Balance</span>
+                                            <span>Current Balance</span>
 
                                             <strong>
                                                 {account.currency}{" "}
                                                 {formatAmount(
+                                                    balances[account.id] ??
                                                     account.openingBalance
                                                 )}
                                             </strong>
@@ -185,6 +217,12 @@ function AccountSection({ onLogout }) {
                         )}
                     </div>
                 </div>
+
+                {/* Transactions are displayed below the account cards. */}
+                <TransactionSection
+                    accounts={accounts}
+                    onTransactionAdded={handleTransactionAdded}
+                />
             </main>
 
             {showAccountSetup && (

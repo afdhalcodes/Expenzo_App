@@ -1,6 +1,6 @@
 package com.project.expenzoback.repository;
 
-import com.project.expenzoback.model.functionality.Accounts;
+import com.project.expenzoback.model.functionality.account.Accounts;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

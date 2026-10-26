@@ -1,4 +1,4 @@
-package com.project.expenzoback.model.functionality;
+package com.project.expenzoback.model.functionality.account;
 
 import com.project.expenzoback.model.security.Users;
 import jakarta.persistence.*;

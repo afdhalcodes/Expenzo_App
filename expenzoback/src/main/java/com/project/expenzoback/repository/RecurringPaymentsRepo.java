@@ -3,11 +3,13 @@ package com.project.expenzoback.repository;
 import com.project.expenzoback.model.functionality.recurringpayment.PaymentStatus;
 import com.project.expenzoback.model.functionality.recurringpayment.RecurringPayments;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public interface RecurringPaymentsRepo extends JpaRepository<RecurringPayments,Long> {
 
     List<RecurringPayments> findByStatus(PaymentStatus status);

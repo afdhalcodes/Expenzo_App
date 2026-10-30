@@ -1,7 +1,15 @@
+
 const API_URL =
     import.meta.env.VITE_API_URL || "http://localhost:8080";
 
 async function handleResponse(response) {
+    // Notify App.jsx immediately if the backend rejects the JWT.
+    if (response.status === 401) {
+        window.dispatchEvent(
+            new Event("expenzo:unauthorized")
+        );
+    }
+
     const contentType = response.headers.get("content-type") || "";
 
     let data;
@@ -18,7 +26,10 @@ async function handleResponse(response) {
                 ? data.message || "Request failed."
                 : data || "Request failed.";
 
-        throw new Error(message);
+        const error = new Error(message);
+        error.status = response.status;
+
+        throw error;
     }
 
     return data;
@@ -28,7 +39,16 @@ async function accountRequest(path, options = {}) {
     const token = localStorage.getItem("token");
 
     if (!token) {
-        throw new Error("Please log in to manage your accounts.");
+        window.dispatchEvent(
+            new Event("expenzo:unauthorized")
+        );
+
+        const error = new Error(
+            "Please log in to manage your accounts."
+        );
+
+        error.status = 401;
+        throw error;
     }
 
     let response;
@@ -45,6 +65,7 @@ async function accountRequest(path, options = {}) {
             }
         });
     } catch {
+        // A network error is not necessarily an authentication error.
         throw new Error(
             "Unable to connect to the server. Please try again."
         );
@@ -57,7 +78,11 @@ export async function getAccounts() {
     return accountRequest("/api/accounts");
 }
 
-export async function createAccount(name, openingBalance, currency) {
+export async function createAccount(
+    name,
+    openingBalance,
+    currency
+) {
     return accountRequest("/api/accounts", {
         method: "POST",
         body: JSON.stringify({
@@ -72,7 +97,10 @@ export async function getAccount(accountId) {
     return accountRequest(`/api/accounts/${accountId}`);
 }
 
-export async function updateOpeningBalance(accountId, openingBalance) {
+export async function updateOpeningBalance(
+    accountId,
+    openingBalance
+) {
     return accountRequest(
         `/api/accounts/${accountId}/opening-balance`,
         {

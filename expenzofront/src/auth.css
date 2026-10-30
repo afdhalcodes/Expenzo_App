@@ -4,33 +4,42 @@
     --font-display: "Bricolage Grotesque", "Figtree", system-ui, sans-serif;
     --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 
-    --indigo-950: #0f1236;
-    --indigo-900: #14173f;
-    --indigo-800: #1e2360;
-    --indigo-700: #2a3396;
-    --indigo-600: #3843b8;
-    --indigo-100: #e4e7fa;
-    --indigo-50: #f0f2fd;
+    /* Brand — kept as deep indigo surfaces */
+    --indigo-950: #07081a;
+    --indigo-900: #0d1024;
+    --indigo-800: #161a38;
+    --indigo-700: #3a43c9;
+    --indigo-600: #5b64f0;
+    --indigo-100: #2a305a;
+    --indigo-50: #1d2142;
+
+    --accent: #5b64f0;
+    --accent-hover: #6f78ff;
+    --accent-soft: #9aa2ff;
+    --accent-glow: rgba(91, 100, 240, 0.35);
 
     --marigold: #f6b12d;
-    --marigold-600: #e39a0c;
-    --marigold-100: #fff1cf;
-    --marigold-ink: #7a4e00;
+    --marigold-600: #ffc450;
+    --marigold-100: rgba(246, 177, 45, 0.14);
+    --marigold-ink: #f6b12d;
 
-    --bg: #f4f5fa;
-    --surface: #ffffff;
-    --line: #e3e5f1;
-    --line-strong: #cbcfe5;
+    /* Dark surfaces */
+    --bg: #080a16;
+    --surface: #11142a;
+    --surface-2: #181c38;
+    --line: #232848;
+    --line-strong: #323963;
 
-    --text: #15173a;
-    --muted: #5b6083;
+    --text: #eceffc;
+    --muted: #98a0c6;
+    --faint: #5f6690;
 
-    --income: #0b8457;
-    --income-bg: #e2f5ec;
-    --expense: #cc3347;
-    --expense-bg: #fce8eb;
-    --violet: #5b36b5;
-    --violet-bg: #ede7fb;
+    --income: #3dd9a0;
+    --income-bg: rgba(61, 217, 160, 0.12);
+    --expense: #ff7185;
+    --expense-bg: rgba(255, 113, 133, 0.12);
+    --violet: #b79cff;
+    --violet-bg: rgba(183, 156, 255, 0.13);
 
     --r-pill: 999px;
     --r-sm: 10px;
@@ -39,10 +48,10 @@
     --r-xl: 22px;
     --r-modal: 26px;
 
-    --shadow-hover: 0 14px 30px -14px rgba(21, 23, 58, 0.28);
-    --shadow-float: 0 24px 60px -18px rgba(15, 18, 54, 0.5);
+    --shadow-hover: 0 18px 40px -16px rgba(0, 0, 0, 0.7);
+    --shadow-float: 0 30px 80px -20px rgba(0, 0, 0, 0.85);
 
-    color-scheme: light;
+    color-scheme: dark;
 }
 
 *,
@@ -94,7 +103,7 @@ button {
 }
 
 :focus-visible {
-    outline: 2px solid var(--indigo-600);
+    outline: 2px solid var(--accent-soft);
     outline-offset: 2px;
 }
 
@@ -127,18 +136,18 @@ button {
 }
 
 .form-group input::placeholder {
-    color: #9297b3;
+    color: var(--faint);
 }
 
 .form-group input:hover,
 .form-group select:hover {
-    border-color: #a9aed0;
+    border-color: #454d80;
 }
 
 .form-group input:focus,
 .form-group select:focus {
-    border-color: var(--indigo-600);
-    box-shadow: 0 0 0 4px rgba(56, 67, 184, 0.16);
+    border-color: var(--accent-soft);
+    box-shadow: 0 0 0 4px rgba(91, 100, 240, 0.22);
 }
 
 .form-group input.input-error {
@@ -146,7 +155,7 @@ button {
 }
 
 .form-group input.input-error:focus {
-    box-shadow: 0 0 0 4px rgba(204, 51, 71, 0.16);
+    box-shadow: 0 0 0 4px rgba(255, 113, 133, 0.2);
 }
 
 .field-error {
@@ -169,7 +178,7 @@ button {
     padding: 0 20px;
     border: none;
     border-radius: var(--r-md);
-    background: var(--indigo-700);
+    background: var(--accent);
     color: #fff;
     font-size: 15px;
     font-weight: 700;
@@ -177,7 +186,7 @@ button {
 }
 
 .auth-card form > button:hover {
-    background: var(--indigo-900);
+    background: var(--accent-hover);
 }
 
 .auth-card form > button:active {
@@ -195,7 +204,7 @@ button {
     padding: 12px 14px;
     border-radius: var(--r-md);
     background: var(--expense-bg);
-    color: #9e1f31;
+    color: #ffa3b0;
     font-size: 14px;
     font-weight: 500;
 }
@@ -204,7 +213,7 @@ button {
     padding: 12px 14px;
     border-radius: var(--r-md);
     background: var(--income-bg);
-    color: #06623f;
+    color: #7ce8bd;
     font-size: 14px;
     font-weight: 500;
 }
@@ -271,7 +280,7 @@ button {
     max-width: 38ch;
     font-size: 17px;
     line-height: 1.55;
-    color: #b9bde0;
+    color: var(--muted);
 }
 
 /* Sample ledger */
@@ -293,7 +302,7 @@ button {
     padding: 0 6px 6px;
     font-size: 13px;
     font-weight: 600;
-    color: #9da2d6;
+    color: var(--faint);
 }
 
 .auth-ledger-row {
@@ -343,7 +352,7 @@ button {
 
 .auth-ledger-info small {
     font-size: 12.5px;
-    color: #9da2d6;
+    color: var(--faint);
 }
 
 .auth-ledger-amount {
@@ -401,7 +410,7 @@ button {
     margin-left: 6px;
     border: none;
     background: none;
-    color: var(--indigo-700);
+    color: var(--accent-soft);
     font-weight: 700;
     text-decoration: underline;
     text-underline-offset: 3px;
@@ -410,7 +419,7 @@ button {
 }
 
 .switch-auth button:hover {
-    color: var(--indigo-900);
+    color: var(--marigold);
 }
 
 /* Responsive layout */

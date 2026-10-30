@@ -152,13 +152,13 @@
 }
 
 .transaction-type-icon.income {
-    background: #dcfce7;
-    color: #15803d;
+    background: var(--income-bg);
+    color: var(--income);
 }
 
 .transaction-type-icon.expense {
-    background: #fee2e2;
-    color: #b91c1c;
+    background: var(--expense-bg);
+    color: var(--expense);
 }
 
 .transaction-details {
@@ -197,11 +197,11 @@
 }
 
 .income-text {
-    color: #15803d;
+    color: var(--income);
 }
 
 .expense-text {
-    color: #b91c1c;
+    color: var(--expense);
 }
 
 /* Empty, loading and error states */
@@ -228,10 +228,10 @@
 .transaction-error {
     margin-bottom: 18px;
     padding: 16px;
-    border: 1px solid #fecaca;
+    border: 1px solid rgba(255, 113, 133, 0.3);
     border-radius: var(--r-md);
-    background: #fef2f2;
-    color: #991b1b;
+    background: var(--expense-bg);
+    color: #ffa3b0;
 }
 
 .transaction-error button {
@@ -239,7 +239,7 @@
     padding: 0;
     border: none;
     background: none;
-    color: #991b1b;
+    color: #ffa3b0;
     font-weight: 700;
     text-decoration: underline;
     cursor: pointer;
@@ -256,7 +256,7 @@
     justify-content: center;
     padding: 24px;
     overflow-y: auto;
-    background: rgba(15, 18, 54, 0.62);
+    background: rgba(4, 5, 14, 0.75);
     animation: transaction-fade-in 0.18s ease both;
 }
 
@@ -363,8 +363,8 @@
 .transaction-form-field input:focus,
 .transaction-form-field select:focus,
 .transaction-form-field textarea:focus {
-    border-color: var(--indigo-700);
-    box-shadow: 0 0 0 3px rgba(67, 56, 202, 0.12);
+    border-color: var(--accent-soft);
+    box-shadow: 0 0 0 3px rgba(91, 100, 240, 0.22);
 }
 
 .transaction-form-field input:disabled,
@@ -377,8 +377,8 @@
 .transaction-form-error {
     padding: 12px;
     border-radius: var(--r-md);
-    background: #fef2f2;
-    color: #b91c1c;
+    background: var(--expense-bg);
+    color: #ffa3b0;
     font-size: 13px;
 }
 
@@ -414,12 +414,12 @@
 
 .transaction-submit-button {
     border: none;
-    background: var(--indigo-700);
+    background: var(--accent);
     color: #fff;
 }
 
 .transaction-submit-button:hover {
-    background: var(--indigo-900);
+    background: var(--accent-hover);
 }
 
 .transaction-cancel-button:disabled,

@@ -3,6 +3,13 @@ const API_URL =
     import.meta.env.VITE_API_URL || "http://localhost:8080";
 
 async function handleResponse(response) {
+    // Handle unauthorized responses before reading the body.
+    if (response.status === 401) {
+        window.dispatchEvent(
+            new Event("expenzo:unauthorized")
+        );
+    }
+
     const contentType = response.headers.get("content-type") || "";
 
     let data;
@@ -13,17 +20,16 @@ async function handleResponse(response) {
         data = await response.text();
     }
 
-    if (response.status === 401) {
-        window.dispatchEvent(new Event("expenzo:unauthorized"));
-    }
-
     if (!response.ok) {
         const message =
             typeof data === "object" && data !== null
                 ? data.message || "Request failed."
                 : data || "Request failed.";
 
-        throw new Error(message);
+        const error = new Error(message);
+        error.status = response.status;
+
+        throw error;
     }
 
     return data;
@@ -33,8 +39,16 @@ async function transactionRequest(path, options = {}) {
     const token = localStorage.getItem("token");
 
     if (!token) {
-        window.dispatchEvent(new Event("expenzo:unauthorized"));
-        throw new Error("Please log in to manage transactions.");
+        window.dispatchEvent(
+            new Event("expenzo:unauthorized")
+        );
+
+        const error = new Error(
+            "Please log in to manage transactions."
+        );
+
+        error.status = 401;
+        throw error;
     }
 
     let response;

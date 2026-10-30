@@ -1,6 +1,6 @@
 
 # Stage 1: Build the Spring Boot application
-FROM maven:3.9-eclipse-temurin-25 AS build
+FROM --platform=linux/amd64 maven:3.9-eclipse-temurin-25 AS build
 
 WORKDIR /app
 
@@ -9,7 +9,7 @@ COPY . .
 RUN mvn -DskipTests package
 
 # Stage 2: Run the application
-FROM eclipse-temurin:25-jre
+FROM --platform=linux/amd64 eclipse-temurin:25-jre
 
 WORKDIR /app
 

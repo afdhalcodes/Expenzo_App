@@ -65,7 +65,7 @@ function AuthPage({ onLoginSuccess }) {
             setUsername("");
             setPassword("");
 
-            onLoginSuccess?.();
+            await onLoginSuccess?.();
         } catch (error) {
             handleError(error);
         }

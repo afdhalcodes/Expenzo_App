@@ -71,7 +71,7 @@ function TransactionSection({ accounts, onTransactionAdded }) {
             return;
         }
 
-        const selectedAccountExists = accounts.some(
+        const selectedAccountExists = accounts.some( //.some() method checks if at least one element in the array satisfies the provided testing function. In this case, it checks if any account's id matches the selected accountId.
             (account) => String(account.id) === accountId
         );
 
@@ -98,6 +98,27 @@ function TransactionSection({ accounts, onTransactionAdded }) {
     useEffect(() => {
         loadTransactions();
     }, [loadTransactions]);
+
+    // Recurring payments dispatch this event after the backend creates the
+    // expense transaction. Refresh this list and the account balances in-place.
+    useEffect(() => {
+        const handleRecurringPaymentPaid = async () => {
+            await loadTransactions();
+            await onTransactionAdded?.();
+        };
+
+        window.addEventListener(
+            "expenzo:transactions-updated",
+            handleRecurringPaymentPaid
+        );
+
+        return () => {
+            window.removeEventListener(
+                "expenzo:transactions-updated",
+                handleRecurringPaymentPaid
+            );
+        };
+    }, [loadTransactions, onTransactionAdded]);
 
     const filteredTransactions =
         selectedFilter === "ALL"

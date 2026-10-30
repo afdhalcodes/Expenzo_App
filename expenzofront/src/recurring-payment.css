@@ -1,0 +1,408 @@
+
+.recurring-payments-section {
+    margin: 52px 0 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.recurring-payments-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.recurring-payments-section-header h2 {
+    margin: 0;
+    color: var(--text);
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+}
+
+.recurring-payments-section-header p {
+    margin: 4px 0 0;
+    color: var(--muted);
+    font-size: 15px;
+}
+
+.add-recurring-payment-button,
+.create-recurring-payment-button {
+    min-height: 44px;
+    padding: 0 20px;
+    color: var(--indigo-950);
+    background: var(--marigold);
+    border: none;
+    border-radius: var(--r-md);
+    font-size: 14px;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.add-recurring-payment-button:hover,
+.create-recurring-payment-button:hover {
+    background: var(--marigold-600);
+}
+
+.add-recurring-payment-button:disabled,
+.create-recurring-payment-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.recurring-account-filter {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.recurring-account-filter label {
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.recurring-account-filter select {
+    max-width: 260px;
+    min-height: 42px;
+    padding: 0 12px;
+    color: var(--text);
+    background: var(--surface);
+    border: 1.5px solid var(--line-strong);
+    border-radius: var(--r-md);
+}
+
+.recurring-payments-list {
+    display: grid;
+    gap: 16px;
+}
+
+.recurring-payment-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 20px;
+    padding: 20px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.recurring-payment-card:hover {
+    border-color: var(--line-strong);
+    box-shadow: var(--shadow-hover);
+}
+
+.recurring-payment-main {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    min-width: 0;
+}
+
+.recurring-payment-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 46px;
+    height: 46px;
+    color: var(--accent-soft);
+    background: rgba(91, 100, 240, 0.16);
+    border-radius: 12px;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.recurring-payment-info {
+    min-width: 0;
+}
+
+.recurring-payment-info h3 {
+    margin: 2px 0 8px;
+    color: var(--text);
+    font-size: 17px;
+    overflow-wrap: anywhere;
+}
+
+.recurring-payment-info p {
+    margin: 4px 0;
+    color: var(--muted);
+    font-size: 13px;
+    overflow-wrap: anywhere;
+}
+
+.recurring-payment-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.recurring-payment-details > strong {
+    color: var(--text);
+    font-family: var(--font-display);
+    font-variant-numeric: tabular-nums;
+    font-size: 19px;
+}
+
+.recurring-payment-details > span {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.recurring-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.recurring-status::before {
+    width: 6px;
+    height: 6px;
+    background: currentColor;
+    border-radius: 50%;
+    content: "";
+}
+
+.recurring-status.active {
+    color: var(--income);
+    background: var(--income-bg);
+}
+
+.recurring-status.paused {
+    color: var(--marigold);
+    background: var(--marigold-100);
+}
+
+.recurring-payment-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    grid-column: 1 / -1;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+}
+
+.recurring-action-button {
+    padding: 8px 12px;
+    color: var(--text);
+    background: var(--surface-2);
+    border: 1px solid var(--line-strong);
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.recurring-action-button:hover {
+    filter: brightness(1.2);
+}
+
+.recurring-action-button.pay {
+    color: var(--income);
+    background: var(--income-bg);
+    border-color: rgba(61, 217, 160, 0.3);
+}
+
+.recurring-action-button.pause {
+    color: var(--marigold);
+    background: var(--marigold-100);
+    border-color: rgba(246, 177, 45, 0.3);
+}
+
+.recurring-action-button.resume {
+    color: var(--accent-soft);
+    background: rgba(91, 100, 240, 0.14);
+    border-color: rgba(154, 162, 255, 0.3);
+}
+
+.recurring-action-button.delete {
+    color: var(--expense);
+    background: var(--expense-bg);
+    border-color: rgba(255, 113, 133, 0.3);
+}
+
+.recurring-action-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.empty-recurring-payments {
+    padding: 36px 20px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.035);
+    border: 1.5px dashed var(--line-strong);
+    border-radius: var(--r-lg);
+}
+
+.empty-recurring-payments h3 {
+    margin: 0 0 8px;
+    color: var(--text);
+}
+
+.empty-recurring-payments p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.recurring-payment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 20px;
+}
+
+.recurring-payment-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.recurring-payment-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+.recurring-payment-form-group label {
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.recurring-payment-form-group input,
+.recurring-payment-form-group select {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    min-height: 46px;
+    padding: 0 14px;
+    color: var(--text);
+    background: var(--surface-2);
+    border: 1.5px solid var(--line-strong);
+    border-radius: var(--r-md);
+    font: inherit;
+}
+
+.recurring-payment-form-group input:focus,
+.recurring-payment-form-group select:focus {
+    outline: none;
+    border-color: var(--accent-soft);
+    box-shadow: 0 0 0 4px rgba(91, 100, 240, 0.22);
+}
+
+.recurring-payment-form-error {
+    padding: 12px 14px;
+    color: #ffa3b0;
+    background: var(--expense-bg);
+    border: 1px solid rgba(255, 113, 133, 0.3);
+    border-radius: var(--r-md);
+    font-size: 14px;
+    overflow-wrap: anywhere;
+}
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow-y: auto;
+    background: rgba(4, 5, 14, 0.75);
+    backdrop-filter: blur(6px);
+}
+
+.recurring-payment-modal {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 620px;
+    max-height: calc(100vh - 40px);
+    padding: 30px;
+    overflow-y: auto;
+    color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-modal);
+    box-shadow: var(--shadow-float);
+}
+
+.recurring-payment-modal-header h2 {
+    margin: 0 0 8px;
+    color: var(--text);
+    font-size: 25px;
+    letter-spacing: -0.03em;
+}
+
+.recurring-payment-modal-header p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.modal-close-button {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    width: 34px;
+    height: 34px;
+    color: var(--text);
+    background: var(--indigo-50);
+    border: none;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+@media (max-width: 650px) {
+    .recurring-payments-section {
+        margin-top: 36px;
+    }
+
+    .recurring-payments-section-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .recurring-payment-card {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .recurring-payment-details {
+        align-items: flex-start;
+    }
+
+    .recurring-payment-form-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .recurring-payment-modal {
+        padding: 24px 18px;
+    }
+
+    .recurring-account-filter {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .recurring-account-filter select {
+        width: 100%;
+        max-width: none;
+    }
+}

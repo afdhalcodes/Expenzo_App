@@ -1,5 +1,5 @@
-
 import { useCallback, useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
 import AccountSetup from "../pages/AccountSetup";
 import { getAccounts } from "../services/accountService";
 import { getAccountBalance } from "../services/transactionService";
@@ -10,6 +10,24 @@ function formatAmount(amount) {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
     });
+}
+
+// Sum balances per currency so mixed-currency users still get a correct total.
+function buildTotals(accounts, balances) {
+    const totals = {};
+
+    accounts.forEach((account) => {
+        const currency = account.currency || "";
+        const value = Number(
+            balances[account.id] ?? account.openingBalance ?? 0
+        );
+
+        totals[currency] = (totals[currency] ?? 0) + value;
+    });
+
+    return Object.entries(totals)
+        .map(([currency, value]) => `${currency} ${formatAmount(value)}`.trim())
+        .join("  ·  ");
 }
 
 function AccountSection({ onLogout }) {
@@ -116,11 +134,7 @@ function AccountSection({ onLogout }) {
 
     // First-time setup: preserve the original account setup page.
     if (accounts.length === 0) {
-        return (
-            <AccountSetup
-                onAccountCreated={handleAccountCreated}
-            />
-        );
+    return <Navigate to="/setup-account" replace />;
     }
 
     return (
@@ -132,11 +146,16 @@ function AccountSection({ onLogout }) {
                         <h1>Expenzo</h1>
                     </a>
 
-                    <div className="accounts-header-actions">
-                        <span className="accounts-header-label">
-                            My Accounts
-                        </span>
+                    <nav
+                        className="dashboard-section-nav"
+                        aria-label="Sections"
+                    >
+                        <a href="#accounts">Accounts</a>
+                        <a href="#transactions">Transactions</a>
+                        <a href="#recurring">Recurring</a>
+                    </nav>
 
+                    <div className="accounts-header-actions">
                         <button
                             className="logout-button"
                             type="button"
@@ -179,6 +198,36 @@ function AccountSection({ onLogout }) {
                                 >
                                     Try again
                                 </button>
+                            </div>
+                        )}
+
+                        {accounts.length > 0 && (
+                            <div className="summary-grid">
+                                <div className="summary-tile primary">
+                                    <span className="summary-label">
+                                        Total balance
+                                    </span>
+                                    <strong className="summary-value">
+                                        {buildTotals(accounts, balances)}
+                                    </strong>
+                                    <span className="summary-hint">
+                                        Across all your accounts
+                                    </span>
+                                </div>
+
+                                <div className="summary-tile">
+                                    <span className="summary-label">
+                                        Accounts
+                                    </span>
+                                    <strong className="summary-value">
+                                        {accounts.length}
+                                    </strong>
+                                    <span className="summary-hint">
+                                        {accounts.length === 1
+                                            ? "account connected"
+                                            : "accounts connected"}
+                                    </span>
+                                </div>
                             </div>
                         )}
 

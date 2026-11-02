@@ -49,6 +49,11 @@ public class Notifications {
     @Column(name = "reference_date")
     private LocalDate referenceDate;
 
+    @PrePersist
+    public void onCreate() {
+        createdAt = LocalDateTime.now();
+    }
+
     public Long getId() {
         return id;
     }

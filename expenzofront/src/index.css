@@ -126,7 +126,7 @@
 .accounts-header-actions {
     display: flex;
     align-items: center;
-    gap: 24px;
+    gap: 14px;
 }
 
 .accounts-header-label {

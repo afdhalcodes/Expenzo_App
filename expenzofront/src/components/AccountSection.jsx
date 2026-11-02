@@ -4,6 +4,7 @@ import AccountSetup from "../pages/AccountSetup";
 import { getAccounts } from "../services/accountService";
 import { getAccountBalance } from "../services/transactionService";
 import TransactionSection from "./TransactionSection";
+import NotificationSection from "./NotificationSection";
 
 function formatAmount(amount) {
     return Number(amount ?? 0).toLocaleString("en-IN", {
@@ -157,7 +158,10 @@ function AccountSection({ onLogout }) {
                         <a href="#debts">Debts</a>
                     </nav>
 
+                    
                     <div className="accounts-header-actions">
+                        <NotificationSection />
+
                         <button
                             className="logout-button"
                             type="button"
@@ -166,6 +170,7 @@ function AccountSection({ onLogout }) {
                             Logout
                         </button>
                     </div>
+
                 </div>
             </header>
 

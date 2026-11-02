@@ -1,74 +1,120 @@
-
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import AccountSection from "../components/AccountSection";
 import RecurringPaymentSection from "../components/RecurringPaymentSection";
 import LoanSection from "../components/LoanSection";
 import DebtSection from "../components/DebtSection";
+import DashboardStatistics from "../components/statistics/DashboardStatistics";
 
 import { getAccounts } from "../services/accountService";
 
-function Dashboard({ onLogout }) {
+function Dashboard() {
     const [accounts, setAccounts] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState("");
+    const [refreshKey, setRefreshKey] = useState(0);
+    const [accountsError, setAccountsError] = useState("");
 
-    async function loadAccounts() {
-        setLoading(true);
-        setError("");
-
+    // Load accounts for the loan, debt, and recurring-payment sections.
+    const loadAccounts = useCallback(async () => {
         try {
+            setAccountsError("");
+
             const data = await getAccounts();
+
             setAccounts(Array.isArray(data) ? data : []);
-        } catch (err) {
-            setError(err.message || "Unable to load accounts.");
-        } finally {
-            setLoading(false);
+        } catch (error) {
+            setAccountsError(
+                error.message || "Unable to load accounts."
+            );
         }
-    }
+    }, []);
 
     useEffect(() => {
         loadAccounts();
-    }, []);
+    }, [loadAccounts]);
+
+    // Refresh dashboard statistics and related sections after a change.
+    const handleDataChanged = useCallback(() => {
+        setRefreshKey((previous) => previous + 1);
+        loadAccounts();
+    }, [loadAccounts]);
 
     return (
-        <>
-            <AccountSection onLogout={onLogout} />
-
+        <div className="dashboard-page">
+            {/* Financial overview and charts */}
             <main className="dashboard-content">
-                {loading ? (
-                    <p className="loading-message">
-                        Loading your account information...
-                    </p>
-                ) : error ? (
-                    <div className="error-message">
-                        <p>{error}</p>
+                <section
+                    id="overview"
+                    className="dashboard-block"
+                >
+                    <DashboardStatistics
+                        refreshKey={refreshKey}
+                    />
+                </section>
+
+                {/* Accounts and transactions.
+                    AccountSection already renders its own header,
+                    notification panel, and transaction section. */}
+                <section
+                    id="accounts"
+                    className="dashboard-block"
+                >
+                    <AccountSection />
+                </section>
+
+                {/* Show account-loading errors for the sections below. */}
+                {accountsError && (
+                    <div className="account-load-error">
+                        <p className="error-message">
+                            {accountsError}
+                        </p>
 
                         <button
-                            className="transaction-refresh-button"
+                            className="account-retry-link"
                             type="button"
                             onClick={loadAccounts}
                         >
                             Retry
                         </button>
                     </div>
-                ) : (
-                    <>
-                        <div id="recurring" className="dashboard-block">
-                            <RecurringPaymentSection accounts={accounts} />
-                        </div>
-
-                        <div id="loans" className="dashboard-block">
-                            <LoanSection accounts={accounts} />
-                        </div>
-
-                        <div id="debts" className="dashboard-block">
-                            <DebtSection accounts={accounts} />
-                        </div>
-                    </>
                 )}
+
+                {/* Loans */}
+                <section
+                    id="loans"
+                    className="dashboard-block"
+                >
+                    <LoanSection
+                        accounts={accounts}
+                        onDataChanged={handleDataChanged}
+                        refreshKey={refreshKey}
+                    />
+                </section>
+
+                {/* Debts */}
+                <section
+                    id="debts"
+                    className="dashboard-block"
+                >
+                    <DebtSection
+                        accounts={accounts}
+                        onDataChanged={handleDataChanged}
+                        refreshKey={refreshKey}
+                    />
+                </section>
+
+                {/* Recurring payments */}
+                <section
+                    id="recurring"
+                    className="dashboard-block"
+                >
+                    <RecurringPaymentSection
+                        accounts={accounts}
+                        onDataChanged={handleDataChanged}
+                        refreshKey={refreshKey}
+                    />
+                </section>
             </main>
-        </>
+        </div>
     );
 }
 

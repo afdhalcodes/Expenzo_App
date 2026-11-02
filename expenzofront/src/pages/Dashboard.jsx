@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import AccountSection from "../components/AccountSection";
 import RecurringPaymentSection from "../components/RecurringPaymentSection";
 import LoanSection from "../components/LoanSection";
+import DebtSection from "../components/DebtSection";
+
 import { getAccounts } from "../services/accountService";
 
 function Dashboard({ onLogout }) {
@@ -40,9 +42,10 @@ function Dashboard({ onLogout }) {
                     </p>
                 ) : error ? (
                     <div className="error-message">
-                        {error}
+                        <p>{error}</p>
+
                         <button
-                            className="secondary-action"
+                            className="transaction-refresh-button"
                             type="button"
                             onClick={loadAccounts}
                         >
@@ -57,6 +60,10 @@ function Dashboard({ onLogout }) {
 
                         <div id="loans" className="dashboard-block">
                             <LoanSection accounts={accounts} />
+                        </div>
+
+                        <div id="debts" className="dashboard-block">
+                            <DebtSection accounts={accounts} />
                         </div>
                     </>
                 )}

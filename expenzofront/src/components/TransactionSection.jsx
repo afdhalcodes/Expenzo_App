@@ -64,22 +64,6 @@ function TransactionSection({ accounts, onTransactionAdded }) {
         getCurrentDateTime
     );
 
-    // Keep the selected account valid when accounts change.
-    useEffect(() => {
-        if (accounts.length === 0) {
-            setAccountId("");
-            return;
-        }
-
-        const selectedAccountExists = accounts.some( //.some() method checks if at least one element in the array satisfies the provided testing function. In this case, it checks if any account's id matches the selected accountId.
-            (account) => String(account.id) === accountId
-        );
-
-        if (!selectedAccountExists) {
-            setAccountId(String(accounts[0].id));
-        }
-    }, [accounts, accountId]);
-
     // Load all transactions for the current user.
     const loadTransactions = useCallback(async () => {
         setLoading(true);
@@ -98,6 +82,39 @@ function TransactionSection({ accounts, onTransactionAdded }) {
     useEffect(() => {
         loadTransactions();
     }, [loadTransactions]);
+
+    // Keep the selected account valid when accounts change.
+    // Refresh transactions and account balances after a debt repayment
+    // or recurring payment is recorded.
+    useEffect(() => {
+        const handleTransactionsUpdated = async (event) => {
+            const accountId = event.detail?.accountId;
+
+            // Make the newly created transaction visible, even if the
+            // user previously selected a different account filter.
+            if (accountId != null) {
+                setSelectedFilter(String(accountId));
+            }
+
+            // Fetch the latest transaction records from the backend.
+            await loadTransactions();
+
+            // Refresh the account balances.
+            await onTransactionAdded?.();
+        };
+
+        window.addEventListener(
+            "expenzo:transactions-updated",
+            handleTransactionsUpdated
+        );
+
+        return () => {
+            window.removeEventListener(
+                "expenzo:transactions-updated",
+                handleTransactionsUpdated
+            );
+        };
+    }, [loadTransactions, onTransactionAdded]);
 
     // Recurring payments dispatch this event after the backend creates the
     // expense transaction. Refresh this list and the account balances in-place.

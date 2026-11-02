@@ -153,6 +153,8 @@ function AccountSection({ onLogout }) {
                         <a href="#accounts">Accounts</a>
                         <a href="#transactions">Transactions</a>
                         <a href="#recurring">Recurring</a>
+                        <a href="#loans">Loans</a>
+                        <a href="#debts">Debts</a>
                     </nav>
 
                     <div className="accounts-header-actions">

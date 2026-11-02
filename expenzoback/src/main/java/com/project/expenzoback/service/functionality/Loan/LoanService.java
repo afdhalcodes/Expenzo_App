@@ -1,4 +1,4 @@
-package com.project.expenzoback.service.functionality;
+package com.project.expenzoback.service.functionality.Loan;
 
 import com.project.expenzoback.dto.loan.*;
 import com.project.expenzoback.model.functionality.account.Accounts;

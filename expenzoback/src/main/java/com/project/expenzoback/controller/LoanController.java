@@ -1,7 +1,7 @@
 package com.project.expenzoback.controller;
 
 import com.project.expenzoback.dto.loan.*;
-import com.project.expenzoback.service.functionality.LoanService;
+import com.project.expenzoback.service.functionality.Loan.LoanService;
 import com.project.expenzoback.service.security.UserPrincipal;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

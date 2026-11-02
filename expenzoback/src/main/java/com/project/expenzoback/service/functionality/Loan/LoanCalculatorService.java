@@ -1,4 +1,4 @@
-package com.project.expenzoback.service.functionality;
+package com.project.expenzoback.service.functionality.Loan;
 
 import org.springframework.stereotype.Service;
 

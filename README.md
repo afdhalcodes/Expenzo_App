@@ -12,10 +12,14 @@ The application combines a **Spring Boot REST API**, a **React frontend**, and a
 - Protected API endpoints.
 - Authentication-aware frontend routing.
 
+![Login Page](./screenshots/authPage.png)
+
 ### 🏦 Account Management
 - Create and manage multiple financial accounts.
 - Maintain account-specific balances.
 - Track transactions associated with different accounts.
+
+![Account Section](./screenshots/accountSection.png)
 
 ### 💸 Transaction Management
 - Record income and expenses.
@@ -23,11 +27,15 @@ The application combines a **Spring Boot REST API**, a **React frontend**, and a
 - Associate transactions with accounts.
 - Keep account balances synchronized with financial activity.
 
+![Transaction Section](./screenshots/transactionsSections.png)
+
 ### 🔄 Recurring Payments
 - Create, view, update, pause, resume, and delete recurring payments.
 - Configure payment frequency and upcoming due dates.
 - Set reminders before payments become due.
 - Mark recurring payments as paid and update the next due date.
+
+![Recurring Payments](./screenshots/recurringPayment.png)
 
 ### 🏠 Loan Management
 - Record and manage loans.
@@ -35,11 +43,15 @@ The application combines a **Spring Boot REST API**, a **React frontend**, and a
 - Track upcoming loan payments.
 - Update loan information as repayments are made.
 
+![Loan Section](./screenshots/loanSection.png)
+
 ### 🤝 Debt Management
 - Track money owed to others and money owed to you.
 - Record repayments and maintain outstanding balances.
 - Receive reminders for pending debts.
 - Keep debt information updated after repayments.
+
+![Debt Section](./screenshots/debtSection.png)
 
 ### 🔔 Notifications
 - Receive notifications about relevant financial activities and upcoming payments.
@@ -47,9 +59,23 @@ The application combines a **Spring Boot REST API**, a **React frontend**, and a
 - Store notifications in the database.
 - Track read and unread notification status.
 
-### 💬 Chat
-- Access the application's chat functionality to communicate with other users.
-- Integrate messaging into the main application experience.
+![Notifications](./screenshots/notification.png)
+
+### 📊 Financial Statistics & Insights
+
+- View a consolidated overview of income, expenses, and account balances.
+- Analyze income and expense trends through visual charts.
+- Monitor financial activity across different time periods.
+- Compare income and expenses to understand financial patterns.
+- Gain insights into overall financial activity through statistical visualizations.
+
+![Financial Statistics](./screenshots/statictisc1.png)
+
+![Financial Statistics](./screenshots/statictisc2.png)
+
+![Financial Statistics](./screenshots/statictisc3.png)
+
+![Financial Statistics](./screenshots/overallData.png)
 
 ### 🐳 Docker Support
 - Containerize the frontend, backend, and database.

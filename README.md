@@ -101,37 +101,7 @@ The application combines a **Spring Boot REST API**, a **React frontend**, and a
 
 Expenzo follows a client-server architecture.
 
-```text
-                 ┌──────────────────────┐
-                 │      React UI        │
-                 │     React + Vite     │
-                 └──────────┬───────────┘
-                            │
-                    HTTP / REST API
-                    JWT Authentication
-                            │
-                 ┌──────────▼───────────┐
-                 │   Spring Boot API    │
-                 │                      │
-                 │ Controllers          │
-                 │ Services             │
-                 │ Repositories         │
-                 │ Security / JWT       │
-                 │ Notification Logic   │
-                 └──────────┬───────────┘
-                            │
-                      Spring Data JPA
-                            │
-                 ┌──────────▼───────────┐
-                 │       MySQL DB       │
-                 │                      │
-                 │ Users and Accounts   │
-                 │ Transactions         │
-                 │ Loans and Debts      │
-                 │ Recurring Payments   │
-                 │ Notifications        │
-                 └──────────────────────┘
-```
+![Flow Diagram](./screenshots/flowDiagram.png)
 
 ### How It Works
 

@@ -1,13 +1,12 @@
-
 # Environment variables and secrets
 .env
 .env.*
 !.env.example
-application-local.properties
 
 # Java / Maven
 **/target/
 **/build/
+**/.mvn/wrapper/maven-wrapper.jar
 
 # Node / React
 **/node_modules/

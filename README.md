@@ -1,4 +1,4 @@
-# 💰 Expenzo — Personal Finance Management System
+# 💰 Expenzo - Personal Finance Management System
 
 **Expenzo** is a full-stack personal finance management application built to help users track income and expenses, manage multiple accounts, monitor recurring payments, calculate loan repayments, track debts, and stay informed through notifications.
 
